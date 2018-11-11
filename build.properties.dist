@@ -66,7 +66,6 @@ platform.bin = ${project.basedir}/bin
 phing.bin = ${project.basedir}/bin/phing
 drush.bin = ${project.basedir}/bin/drush
 composer.bin = composer.phar
-phantomjs.bin = ${project.basedir}/bin/phantomjs
 
 # The build location
 phing.project.build.dir = build
@@ -134,7 +133,7 @@ behat.base_url = http://localhost
 behat.wd_host.url = http://localhost:8643/wd/hub
 
 # The browser to use for javascript testing.
-behat.browser.name = phantomjs
+behat.browser.name = chrome
 
 # The location to search for Behat subcontexts.
 behat.subcontexts.path = ${platform.build.profiles.dir}/common/modules
