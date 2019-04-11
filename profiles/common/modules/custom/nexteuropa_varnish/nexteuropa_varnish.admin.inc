@@ -113,7 +113,14 @@ function nexteuropa_varnish_purge_all_form_submit($form, &$form_state) {
 
   // Treating Varnish flushing (inspired by "flexibe_purge" contrib module).
   $send_success = _nexteuropa_varnish_varnish_requests_send();
-  if (!$send_success) {
+  $agg_success = TRUE;
+  $paths = _nexteuropa_varnish_get_aggregate();
+
+  if (!empty($paths)) {
+    $agg_success = _nexteuropa_varnish_varnish_requests_send($paths);
+  }
+
+  if (!$send_success || !$agg_success) {
     $confirm_message = t('The Varnish caches have not been purged correctly. Please consult logs for more information.');
     $message_level = 'error';
   }

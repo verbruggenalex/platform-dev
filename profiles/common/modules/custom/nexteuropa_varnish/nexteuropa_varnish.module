@@ -749,3 +749,40 @@ function _nexteuropa_varnish_trim_base_path($path, $base_path = NULL) {
 
   return $path;
 }
+
+/**
+ * Get relative filepaths to aggregate css and js.
+ *
+ * @return array
+ *   Aggregated file paths.
+ */
+function _nexteuropa_varnish_get_aggregate() {
+  $preprocess_js = variable_get('preprocess_js', FALSE) && (!defined('MAINTENANCE_MODE') || MAINTENANCE_MODE != 'update');
+  $preprocess_css = variable_get('preprocess_css', FALSE) && (!defined('MAINTENANCE_MODE') || MAINTENANCE_MODE != 'update');
+  $paths = array();
+
+  if ($preprocess_js) {
+    drupal_get_js();
+    $map = variable_get('drupal_js_cache_files', array());
+    $paths = array_merge($paths, $map);
+  }
+
+  if ($preprocess_css) {
+    $css = drupal_add_css();
+    drupal_alter('css', $css);
+    drupal_build_css_cache($css);
+    $map = variable_get('drupal_css_cache_files', array());
+    $paths = array_merge($paths, $map);
+  }
+
+  if (!empty($paths)) {
+    $paths = array_map(function ($path) {
+      $wrapper = file_stream_wrapper_get_instance_by_uri($path);
+      $filepath = $wrapper->getDirectoryPath() . '/';
+      $path = str_replace('public://', $filepath, $path);
+      return preg_quote($path, '/');
+    }, $paths);
+  }
+
+  return $paths;
+}

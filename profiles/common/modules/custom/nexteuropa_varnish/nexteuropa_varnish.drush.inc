@@ -27,4 +27,8 @@ function nexteuropa_varnish_drush_command() {
  */
 function drush_nexteuropa_varnish_varnish_flush_cache() {
   _nexteuropa_varnish_varnish_requests_send();
+  $paths = _nexteuropa_varnish_get_aggregate();
+  if (!empty($paths)) {
+    _nexteuropa_varnish_varnish_requests_send($paths);
+  }
 }
