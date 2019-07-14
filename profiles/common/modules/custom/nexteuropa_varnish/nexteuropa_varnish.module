@@ -450,7 +450,7 @@ function _nexteuropa_varnish_purge_paths($paths) {
     },
     $paths
   );
-  
+
   if (variable_get('nexteuropa_varnish-granularity', 2) === 2) {
     watchdog(
       'nexteuropa_varnish',
