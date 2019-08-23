@@ -560,6 +560,9 @@ projects[pathauto][patch][] = patches/pathauto-admin_patterns-1267966-140.patch
 ; Generate automatic URL alias
 ; https://www.drupal.org/node/1847444
 projects[pathauto][patch][] = https://www.drupal.org/files/issues/pathauto-patch_for_pathautho1.3.patch
+; https://www.drupal.org/node/3076757
+; https://webgate.ec.europa.eu/CITnet/jira/browse/NEPT-2634
+projects[pathauto][patch][] = https://www.drupal.org/files/issues/2019-08-23/php7_compatibility-3076757-2.patch
 
 projects[pathauto_persist][subdir] = "contrib"
 projects[pathauto_persist][version] = "1.4"
