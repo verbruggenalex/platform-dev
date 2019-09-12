@@ -7,8 +7,10 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        theme_default: [ec_resp, ec_europa]
-        behat_part: [0, 1, 2, 3]
+        theme_default: [ec_europa]
+        behat_part: [0]
+        # theme_default: [ec_resp, ec_europa]
+        # behat_part: [0, 1, 2, 3]
         include:
           - theme_default: ec_resp
             behat_part: '0'
@@ -42,36 +44,29 @@ jobs:
             behat_part: '3'
             behat_profile: default
             platform_profile: multisite_drupal_standard
-    # container:
-    #   image: fpfis/httpd-php-ci:5.6
-    #   env:
-    #     DOCUMENT_ROOT: /test/platform
-    # services:
-    #   mysql:
-    #     image: percona/percona-server:5.6
-    #     env:
-    #       MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
-    #   selenium:
-    #     image: wernight/phantomjs
-    #     env:
-    #       DISPLAY: ':99'
-    #       SE_OPTS: '-debug'
-    steps:
-      - name: Echo
-        run: |
-          echo "platform_profile: ${{ matrix.platform_profile }}"
-          echo "theme_default: ${{ matrix.theme_default }}"
-          echo "behat_part: ${{ matrix.behat_part }}"
-          echo "behat_part: ${{ matrix.behat_profile }}"
-    # - name: Checkout
-    #   uses: actions/checkout@v1
-    # - name: Site build
-    #   run: |
-    #     php --version
-    #     composer install --ansi --no-suggest --no-progress
-    #     ./bin/phing build-platform-dev -propertyfile 'build.properties.drone' -D'platform.profile.name'='${{ matrix.platform_profile }}' -D'platform.site.theme_default'='${{ matrix.theme_default }}'
-    #     ./bin/phing setup-drone-file-system -propertyfile 'build.properties.drone' -D'platform.profile.name'='${{ matrix.platform_profile }}' -D'platform.site.theme_default'='${{ matrix.theme_default }}'
-    #     ./bin/phing install-platform  -propertyfile 'build.properties.drone' -D'platform.profile.name'='${{ matrix.platform_profile }}' -D'platform.site.theme_default'='${{ matrix.theme_default }}'
+    container:
+      image: fpfis/httpd-php-ci:5.6
+      env:
+        DOCUMENT_ROOT: /test/platform
+    services:
+      mysql:
+        image: percona/percona-server:5.6
+        env:
+          MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+      selenium:
+        image: wernight/phantomjs
+        env:
+          DISPLAY: ':99'
+          SE_OPTS: '-debug'
+    - name: Checkout
+      uses: actions/checkout@v1
+    - name: Site build
+      run: |
+        php --version
+        composer install --ansi --no-suggest --no-progress
+        ./bin/phing build-platform-dev -propertyfile 'build.properties.drone' -D'platform.profile.name'='${{ matrix.platform_profile }}' -D'platform.site.theme_default'='${{ matrix.theme_default }}'
+        ./bin/phing setup-drone-file-system -propertyfile 'build.properties.drone' -D'platform.profile.name'='${{ matrix.platform_profile }}' -D'platform.site.theme_default'='${{ matrix.theme_default }}'
+        ./bin/phing install-platform  -propertyfile 'build.properties.drone' -D'platform.profile.name'='${{ matrix.platform_profile }}' -D'platform.site.theme_default'='${{ matrix.theme_default }}'
     # - name: PHPCS
     #   run: |
     #     ./bin/phpcs
