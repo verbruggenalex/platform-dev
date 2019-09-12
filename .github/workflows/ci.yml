@@ -7,75 +7,77 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
+        platform_profile: [multisite_drupal_standard,multisite_drupal_communities]
+        theme_default: [ec_resp,ec_europa]
         include:
-        - code_compliance: 1
-          # Communities profile, ec_resp theme
-        - behat_part: 0
-          behat_profile: communities_ec_resp
-          code_compliance: 0
-          IMAGE_PHP: fpfis/httpd-php-ci:5.6
-          platform_profile: multisite_drupal_communities
-          theme_default: ec_resp
+          - code_compliance: 1
+            # Communities profile, ec_resp theme
+          - behat_part: 0
+            behat_profile: communities_ec_resp
+            code_compliance: 0
+            image_php: fpfis/httpd-php-ci:5.6
+            platform_profile: multisite_drupal_communities
+            theme_default: ec_resp
     
-          # Communities profile, ec_europa theme
-        - behat_part: 0
-          behat_profile: communities
-          code_compliance: 0
-          IMAGE_PHP: fpfis/httpd-php-ci:5.6
-          platform_profile: multisite_drupal_communities
-          theme_default: ec_europa
+            # Communities profile, ec_europa theme
+          - behat_part: 0
+            behat_profile: communities
+            code_compliance: 0
+            image_php: fpfis/httpd-php-ci:5.6
+            platform_profile: multisite_drupal_communities
+            theme_default: ec_europa
     
-          # Standard profile, ec_europa theme
-        - behat_part: 0
-          behat_profile: default
-          code_compliance: 0
-          IMAGE_PHP: fpfis/httpd-php-ci:5.6
-          platform_profile: multisite_drupal_standard
-          theme_default: ec_europa
-        - behat_part: 1
-          behat_profile: default
-          code_compliance: 0
-          IMAGE_PHP: fpfis/httpd-php-ci:5.6
-          platform_profile: multisite_drupal_standard
-          theme_default: ec_europa
-        - behat_part: 2
-          behat_profile: default
-          code_compliance: 0
-          IMAGE_PHP: fpfis/httpd-php-ci:5.6
-          platform_profile: multisite_drupal_standard
-          theme_default: ec_europa
-        - behat_part: 3
-          behat_profile: default
-          code_compliance: 0
-          IMAGE_PHP: fpfis/httpd-php-ci:5.6
-          platform_profile: multisite_drupal_standard
-          theme_default: ec_europa
+            # Standard profile, ec_europa theme
+          - behat_part: 0
+            behat_profile: default
+            code_compliance: 0
+            image_php: fpfis/httpd-php-ci:5.6
+            platform_profile: multisite_drupal_standard
+            theme_default: ec_europa
+          - behat_part: 1
+            behat_profile: default
+            code_compliance: 0
+            image_php: fpfis/httpd-php-ci:5.6
+            platform_profile: multisite_drupal_standard
+            theme_default: ec_europa
+          - behat_part: 2
+            behat_profile: default
+            code_compliance: 0
+            image_php: fpfis/httpd-php-ci:5.6
+            platform_profile: multisite_drupal_standard
+            theme_default: ec_europa
+          - behat_part: 3
+            behat_profile: default
+            code_compliance: 0
+            image_php: fpfis/httpd-php-ci:5.6
+            platform_profile: multisite_drupal_standard
+            theme_default: ec_europa
     
-          # Standard profile, ec_resp theme
-        - behat_part: 0
-          behat_profile: standard_ec_resp
-          code_compliance: 0
-          IMAGE_PHP: fpfis/httpd-php-ci:5.6
-          platform_profile: multisite_drupal_standard
-          theme_default: ec_resp
-        - behat_part: 1
-          behat_profile: standard_ec_resp
-          code_compliance: 0
-          IMAGE_PHP: fpfis/httpd-php-ci:5.6
-          platform_profile: multisite_drupal_standard
-          theme_default: ec_resp
-        - behat_part: 2
-          behat_profile: standard_ec_resp
-          code_compliance: 0
-          IMAGE_PHP: fpfis/httpd-php-ci:5.6
-          platform_profile: multisite_drupal_standard
-          theme_default: ec_resp
-        - behat_part: 3
-          behat_profile: standard_ec_resp
-          code_compliance: 0
-          IMAGE_PHP: fpfis/httpd-php-ci:5.6
-          platform_profile: multisite_drupal_standard
-          theme_default: ec_resp
+            # Standard profile, ec_resp theme
+          - behat_part: 0
+            behat_profile: standard_ec_resp
+            code_compliance: 0
+            image_php: fpfis/httpd-php-ci:5.6
+            platform_profile: multisite_drupal_standard
+            theme_default: ec_resp
+          - behat_part: 1
+            behat_profile: standard_ec_resp
+            code_compliance: 0
+            image_php: fpfis/httpd-php-ci:5.6
+            platform_profile: multisite_drupal_standard
+            theme_default: ec_resp
+          - behat_part: 2
+            behat_profile: standard_ec_resp
+            code_compliance: 0
+            image_php: fpfis/httpd-php-ci:5.6
+            platform_profile: multisite_drupal_standard
+            theme_default: ec_resp
+          - behat_part: 3
+            behat_profile: standard_ec_resp
+            code_compliance: 0
+            image_php: fpfis/httpd-php-ci:5.6
+            platform_profile: multisite_drupal_standard
+            theme_default: ec_resp
     container:
       image: fpfis/httpd-php-ci:5.6
       env:
