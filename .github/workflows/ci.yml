@@ -5,6 +5,77 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
+    # strategy:
+    #   matrix:
+    #     include:
+    #     - CODE_COMPLIANCE: 1
+    #       # Communities profile, ec_resp theme
+    #     - BEHAT_PART: 0
+    #       BEHAT_PROFILE: communities_ec_resp
+    #       CODE_COMPLIANCE: 0
+    #       IMAGE_PHP: fpfis/httpd-php-ci:DRONE_PHP_VERSION
+    #       PLATFORM_PROFILE: multisite_drupal_communities
+    #       THEME_DEFAULT: ec_resp
+    
+    #       # Communities profile, ec_europa theme
+    #     - BEHAT_PART: 0
+    #       BEHAT_PROFILE: communities
+    #       CODE_COMPLIANCE: 0
+    #       IMAGE_PHP: fpfis/httpd-php-ci:DRONE_PHP_VERSION
+    #       PLATFORM_PROFILE: multisite_drupal_communities
+    #       THEME_DEFAULT: ec_europa
+    
+    #       # Standard profile, ec_europa theme
+    #     - BEHAT_PART: 0
+    #       BEHAT_PROFILE: default
+    #       CODE_COMPLIANCE: 0
+    #       IMAGE_PHP: fpfis/httpd-php-ci:DRONE_PHP_VERSION
+    #       PLATFORM_PROFILE: multisite_drupal_standard
+    #       THEME_DEFAULT: ec_europa
+    #     - BEHAT_PART: 1
+    #       BEHAT_PROFILE: default
+    #       CODE_COMPLIANCE: 0
+    #       IMAGE_PHP: fpfis/httpd-php-ci:DRONE_PHP_VERSION
+    #       PLATFORM_PROFILE: multisite_drupal_standard
+    #       THEME_DEFAULT: ec_europa
+    #     - BEHAT_PART: 2
+    #       BEHAT_PROFILE: default
+    #       CODE_COMPLIANCE: 0
+    #       IMAGE_PHP: fpfis/httpd-php-ci:DRONE_PHP_VERSION
+    #       PLATFORM_PROFILE: multisite_drupal_standard
+    #       THEME_DEFAULT: ec_europa
+    #     - BEHAT_PART: 3
+    #       BEHAT_PROFILE: default
+    #       CODE_COMPLIANCE: 0
+    #       IMAGE_PHP: fpfis/httpd-php-ci:DRONE_PHP_VERSION
+    #       PLATFORM_PROFILE: multisite_drupal_standard
+    #       THEME_DEFAULT: ec_europa
+    
+    #       # Standard profile, ec_resp theme
+    #     - BEHAT_PART: 0
+    #       BEHAT_PROFILE: standard_ec_resp
+    #       CODE_COMPLIANCE: 0
+    #       IMAGE_PHP: fpfis/httpd-php-ci:DRONE_PHP_VERSION
+    #       PLATFORM_PROFILE: multisite_drupal_standard
+    #       THEME_DEFAULT: ec_resp
+    #     - BEHAT_PART: 1
+    #       BEHAT_PROFILE: standard_ec_resp
+    #       CODE_COMPLIANCE: 0
+    #       IMAGE_PHP: fpfis/httpd-php-ci:DRONE_PHP_VERSION
+    #       PLATFORM_PROFILE: multisite_drupal_standard
+    #       THEME_DEFAULT: ec_resp
+    #     - BEHAT_PART: 2
+    #       BEHAT_PROFILE: standard_ec_resp
+    #       CODE_COMPLIANCE: 0
+    #       IMAGE_PHP: fpfis/httpd-php-ci:DRONE_PHP_VERSION
+    #       PLATFORM_PROFILE: multisite_drupal_standard
+    #       THEME_DEFAULT: ec_resp
+    #     - BEHAT_PART: 3
+    #       BEHAT_PROFILE: standard_ec_resp
+    #       CODE_COMPLIANCE: 0
+    #       IMAGE_PHP: fpfis/httpd-php-ci:DRONE_PHP_VERSION
+    #       PLATFORM_PROFILE: multisite_drupal_standard
+    #       THEME_DEFAULT: ec_resp
     container:
       image: fpfis/httpd-php-ci:5.6
       env:
@@ -26,6 +97,6 @@ jobs:
       run: |
         php --version
         composer install --ansi --no-suggest --no-progress
-        ./bin/phing build-platform-dev -propertyfile 'build.properties.drone' -D'platform.profile.name'='${PLATFORM_PROFILE=multisite_drupal_standard}' -D'platform.site.theme_default'='${THEME_DEFAULT=ec_resp}'
-        ./bin/phing setup-drone-file-system -propertyfile 'build.properties.drone' -D'platform.profile.name'='${PLATFORM_PROFILE=multisite_drupal_standard}' -D'platform.site.theme_default'='${THEME_DEFAULT=ec_resp}'
-        ./bin/phing install-platform  -propertyfile 'build.properties.drone' -D'platform.profile.name'='${PLATFORM_PROFILE=multisite_drupal_standard}' -D'platform.site.theme_default'='${THEME_DEFAULT=ec_resp}'
+        ./bin/phing build-platform-dev -propertyfile 'build.properties.drone' -D'platform.profile.name'='multisite_drupal_standard' -D'platform.site.theme_default'='ec-resp'
+        ./bin/phing setup-drone-file-system -propertyfile 'build.properties.drone' -D'platform.profile.name'='multisite_drupal_standard' -D'platform.site.theme_default'='ec-resp'
+        ./bin/phing install-platform  -propertyfile 'build.properties.drone' -D'platform.profile.name'='multisite_drupal_standard' -D'platform.site.theme_default'='ec-resp'
