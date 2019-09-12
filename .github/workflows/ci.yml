@@ -47,9 +47,9 @@ jobs:
     steps:
       - name: Echo
         run: |
-          echo "platform_profile: {{ matrix.platform_profile }}"
-          echo "theme_default: {{ matrix.theme_default }}"
-          echo "behat_part: {{ matrix.behat_part }}"
+          echo "platform_profile: ${{ matrix.platform_profile }}"
+          echo "theme_default: ${{ matrix.theme_default }}"
+          echo "behat_part: ${{ matrix.behat_part }}"
     # - name: Checkout
     #   uses: actions/checkout@v1
     # - name: Site build
