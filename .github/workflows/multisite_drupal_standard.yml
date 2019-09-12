@@ -47,7 +47,7 @@ jobs:
     container:
       image: fpfis/httpd-php-ci:5.6
       env:
-        DOCUMENT_ROOT: /test/platform
+        DOCUMENT_ROOT: $GITHUB_WORKSPACE
       ports:
         - 8080:8080
     services:
