@@ -7,7 +7,6 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        platform_profile: [multisite_drupal_standard]
         theme_default: [ec_resp,ec_europa]
         behat_part: [0,1,2,3]
         include:
@@ -28,19 +27,19 @@ jobs:
             behat_part: 3
             behat_profile: default
           - platform_profile: multisite_drupal_standard
-            theme_default: ec_resp
+            theme_default: ec_europa
             behat_part: 0
             behat_profile: default
           - platform_profile: multisite_drupal_standard
-            theme_default: ec_resp
+            theme_default: ec_europa
             behat_part: 1
             behat_profile: default
           - platform_profile: multisite_drupal_standard
-            theme_default: ec_resp
+            theme_default: ec_europa
             behat_part: 2
             behat_profile: default
           - platform_profile: multisite_drupal_standard
-            theme_default: ec_resp
+            theme_default: ec_europa
             behat_part: 3
             behat_profile: default
           
