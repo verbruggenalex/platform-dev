@@ -48,20 +48,18 @@ jobs:
       image: fpfis/httpd-php-ci:5.6
       env:
         DOCUMENT_ROOT: /test/platform
+      ports:
+        - 8080:8080
     services:
       mysql:
         image: percona/percona-server:5.6
         env:
           MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
-        ports:
-          - 33066:3306
       selenium:
         image: wernight/phantomjs
         env:
           DISPLAY: ':99'
           SE_OPTS: '-debug'
-        ports:
-          - 8910:8910
     steps:
     - name: Checkout
       uses: actions/checkout@v1
