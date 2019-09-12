@@ -47,7 +47,7 @@ jobs:
     container:
       image: fpfis/httpd-php-ci:5.6
       env:
-        DOCUMENT_ROOT: $$GITHUB_WORKSPACE
+        DOCUMENT_ROOT: "${GITHUB_WORKSPACE}"
     services:
       mysql:
         image: percona/percona-server:5.6
