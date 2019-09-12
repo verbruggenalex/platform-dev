@@ -30,20 +30,20 @@ jobs:
           - platform_profile: multisite_drupal_communities
             theme_default: ec_europa
             behat_part: 3
-    container:
-      image: fpfis/httpd-php-ci:5.6
-      env:
-        DOCUMENT_ROOT: /test/platform
-    services:
-      mysql:
-        image: percona/percona-server:5.6
-        env:
-          MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
-      selenium:
-        image: wernight/phantomjs
-        env:
-          DISPLAY: ':99'
-          SE_OPTS: '-debug'
+    # container:
+    #   image: fpfis/httpd-php-ci:5.6
+    #   env:
+    #     DOCUMENT_ROOT: /test/platform
+    # services:
+    #   mysql:
+    #     image: percona/percona-server:5.6
+    #     env:
+    #       MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+    #   selenium:
+    #     image: wernight/phantomjs
+    #     env:
+    #       DISPLAY: ':99'
+    #       SE_OPTS: '-debug'
     steps:
       - name: Echo
         run: |
