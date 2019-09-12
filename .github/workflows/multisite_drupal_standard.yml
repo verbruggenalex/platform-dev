@@ -69,7 +69,7 @@ jobs:
         ls -la $PWD
         ls -la $GITHUB_WORKSPACE
         ls -la $DOCUMENT_ROOT
-        # curl http://localhost:8080 || curl http://127.0.0.1:8080 || echo "No curl" 
+        curl http://localhost:8080 || curl http://127.0.0.1:8080 || echo "No curl" 
     # - name: Site build
     #   run: |
     #     php --version
