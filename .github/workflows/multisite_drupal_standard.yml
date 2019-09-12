@@ -7,8 +7,10 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        theme_default: [ec_resp, ec_europa]
-        behat_part: [0, 1, 2, 3]
+        theme_default: [ec_europa]
+        behat_part: [0]
+        # theme_default: [ec_resp, ec_europa]
+        # behat_part: [0, 1, 2, 3]
         include:
           - theme_default: ec_resp
             behat_part: '0'
@@ -56,6 +58,7 @@ jobs:
         env:
           DISPLAY: ':99'
           SE_OPTS: '-debug'
+  steps:
     - name: Checkout
       uses: actions/checkout@v1
     - name: Site build
