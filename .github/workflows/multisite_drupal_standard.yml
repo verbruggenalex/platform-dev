@@ -48,8 +48,6 @@ jobs:
       image: fpfis/httpd-php-ci:5.6
       env:
         DOCUMENT_ROOT: $GITHUB_WORKSPACE
-      ports:
-        - 8080:8080
     services:
       mysql:
         image: percona/percona-server:5.6
@@ -65,11 +63,13 @@ jobs:
       uses: actions/checkout@v1
     - name: Debug
       run: |
+        echo $DOCUMENT_ROOT
         echo $PWD
         echo $GITHUB_WORKSPACE
         ls -la $PWD
         ls -la $GITHUB_WORKSPACE
-        curl http://localhost:8080 || curl http://127.0.0.1:8080 || curl http://localhost || curl http://127.0.0.1
+        ls -la $DOCUMENT_ROOT
+        # curl http://localhost:8080 || curl http://127.0.0.1:8080 || echo "No curl" 
     # - name: Site build
     #   run: |
     #     php --version
