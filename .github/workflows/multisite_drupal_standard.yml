@@ -63,13 +63,16 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v1
-    - name: Site build
+    - name: Debug
       run: |
-        php --version
-        composer install --ansi --no-suggest --no-progress
-        ./bin/phing build-platform-dev -propertyfile 'build.properties.github' -D'platform.profile.name'='${{ matrix.platform_profile }}' -D'platform.site.theme_default'='${{ matrix.theme_default }}'
-        ./bin/phing setup-drone-file-system -propertyfile 'build.properties.github' -D'platform.profile.name'='${{ matrix.platform_profile }}' -D'platform.site.theme_default'='${{ matrix.theme_default }}'
-        ./bin/phing install-platform  -propertyfile 'build.properties.github' -D'platform.profile.name'='${{ matrix.platform_profile }}' -D'platform.site.theme_default'='${{ matrix.theme_default }}'
+        docker ps -a
+    # - name: Site build
+    #   run: |
+    #     php --version
+    #     composer install --ansi --no-suggest --no-progress
+    #     ./bin/phing build-platform-dev -propertyfile 'build.properties.github' -D'platform.profile.name'='${{ matrix.platform_profile }}' -D'platform.site.theme_default'='${{ matrix.theme_default }}'
+    #     ./bin/phing setup-drone-file-system -propertyfile 'build.properties.github' -D'platform.profile.name'='${{ matrix.platform_profile }}' -D'platform.site.theme_default'='${{ matrix.theme_default }}'
+    #     ./bin/phing install-platform  -propertyfile 'build.properties.github' -D'platform.profile.name'='${{ matrix.platform_profile }}' -D'platform.site.theme_default'='${{ matrix.theme_default }}'
     # - name: PHPCS
     #   run: |
     #     ./bin/phpcs
@@ -78,6 +81,6 @@ jobs:
     #   run: |
     #     ./bin/phpunit -c tests/phpunit.xml
     #   if: matrix.code_compliance == 1
-    - name: Behat
-      run: |
-        ./bin/behat -c build/tests/balancer/behat.${{ matrix.behat_profile}}.${{ matrix.behat_part }}.yml -p ${{ matrix.behat_profile}} --colors -f pretty --strict
+    # - name: Behat
+    #   run: |
+    #     ./bin/behat -c build/tests/balancer/behat.${{ matrix.behat_profile}}.${{ matrix.behat_part }}.yml -p ${{ matrix.behat_profile}} --colors -f pretty --strict
