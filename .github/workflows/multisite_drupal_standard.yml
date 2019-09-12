@@ -9,39 +9,39 @@ jobs:
       matrix:
         theme_default: [ec_resp, ec_europa]
         behat_part: [0, 1, 2, 3]
-        include:
-          - platform_profile: multisite_drupal_standard
-            theme_default: ec_resp
-            behat_part: 0
-            behat_profile: standard_ec_resp
-          - platform_profile: multisite_drupal_standard
-            theme_default: ec_resp
-            behat_part: 1
-            behat_profile: standard_ec_resp
-          - platform_profile: multisite_drupal_standard
-            theme_default: ec_resp
-            behat_part: 2
-            behat_profile: standard_ec_resp
-          - platform_profile: multisite_drupal_standard
-            theme_default: ec_resp
-            behat_part: 3
-            behat_profile: standard_ec_resp
-          - platform_profile: multisite_drupal_standard
-            theme_default: ec_europa
-            behat_part: 0
-            behat_profile: default
-          - platform_profile: multisite_drupal_standard
-            theme_default: ec_europa
-            behat_part: 1
-            behat_profile: default
-          - platform_profile: multisite_drupal_standard
-            theme_default: ec_europa
-            behat_part: 2
-            behat_profile: default
-          - platform_profile: multisite_drupal_standard
-            theme_default: ec_europa
-            behat_part: 3
-            behat_profile: default
+        # include:
+        #   - platform_profile: multisite_drupal_standard
+        #     theme_default: ec_resp
+        #     behat_part: 0
+        #     behat_profile: standard_ec_resp
+        #   - platform_profile: multisite_drupal_standard
+        #     theme_default: ec_resp
+        #     behat_part: 1
+        #     behat_profile: standard_ec_resp
+        #   - platform_profile: multisite_drupal_standard
+        #     theme_default: ec_resp
+        #     behat_part: 2
+        #     behat_profile: standard_ec_resp
+        #   - platform_profile: multisite_drupal_standard
+        #     theme_default: ec_resp
+        #     behat_part: 3
+        #     behat_profile: standard_ec_resp
+        #   - platform_profile: multisite_drupal_standard
+        #     theme_default: ec_europa
+        #     behat_part: 0
+        #     behat_profile: default
+        #   - platform_profile: multisite_drupal_standard
+        #     theme_default: ec_europa
+        #     behat_part: 1
+        #     behat_profile: default
+        #   - platform_profile: multisite_drupal_standard
+        #     theme_default: ec_europa
+        #     behat_part: 2
+        #     behat_profile: default
+        #   - platform_profile: multisite_drupal_standard
+        #     theme_default: ec_europa
+        #     behat_part: 3
+        #     behat_profile: default
     # container:
     #   image: fpfis/httpd-php-ci:5.6
     #   env:
