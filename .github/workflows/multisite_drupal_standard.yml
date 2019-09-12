@@ -58,7 +58,7 @@ jobs:
         env:
           DISPLAY: ':99'
           SE_OPTS: '-debug'
-  steps:
+    steps:
     - name: Checkout
       uses: actions/checkout@v1
     - name: Site build
