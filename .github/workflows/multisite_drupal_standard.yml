@@ -3,33 +3,47 @@ on:
   push:
 jobs:
   build:
-    name: Build
+    name: Multisite Drupal Standard
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        platform_profile: [multisite_drupal_standard,multisite_drupal_communities]
+        platform_profile: [multisite_drupal_standard]
         theme_default: [ec_resp,ec_europa]
         behat_part: [0,1,2,3]
-#        behat_profile: [standard_ec_resp,default,communities,communities_ec_resp]
-        exclude:
-          - platform_profile: multisite_drupal_communities
+        include:
+          - platform_profile: multisite_drupal_standard
+            theme_default: ec_resp
+            behat_part: 0
+            behat_profile: default
+          - platform_profile: multisite_drupal_standard
             theme_default: ec_resp
             behat_part: 1
-          - platform_profile: multisite_drupal_communities
+            behat_profile: default
+          - platform_profile: multisite_drupal_standard
             theme_default: ec_resp
             behat_part: 2
-          - platform_profile: multisite_drupal_communities
+            behat_profile: default
+          - platform_profile: multisite_drupal_standard
             theme_default: ec_resp
             behat_part: 3
-          - platform_profile: multisite_drupal_communities
-            theme_default: ec_europa
+            behat_profile: default
+          - platform_profile: multisite_drupal_standard
+            theme_default: ec_resp
+            behat_part: 0
+            behat_profile: default
+          - platform_profile: multisite_drupal_standard
+            theme_default: ec_resp
             behat_part: 1
-          - platform_profile: multisite_drupal_communities
-            theme_default: ec_europa
+            behat_profile: default
+          - platform_profile: multisite_drupal_standard
+            theme_default: ec_resp
             behat_part: 2
-          - platform_profile: multisite_drupal_communities
-            theme_default: ec_europa
+            behat_profile: default
+          - platform_profile: multisite_drupal_standard
+            theme_default: ec_resp
             behat_part: 3
+            behat_profile: default
+          
     # container:
     #   image: fpfis/httpd-php-ci:5.6
     #   env:
