@@ -17,5 +17,6 @@ behat.poetry.username = username
 behat.poetry.password = password
 
 drupal.db.host = 127.0.0.1
+drupal.db.port = 33066
 drupal.db.user = root
 drupal.db.password =
