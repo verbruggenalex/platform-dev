@@ -43,10 +43,10 @@ jobs:
             behat_profile: default
             platform_profile: multisite_drupal_standard
         exclude:
-          - theme_default: ec_resp
-            behat_part: '0'
-          - theme_default: ec_resp
-            behat_part: '1'
+        #   - theme_default: ec_resp
+        #     behat_part: '0'
+        #   - theme_default: ec_resp
+        #     behat_part: '1'
           - theme_default: ec_resp
             behat_part: '2'
           - theme_default: ec_resp
@@ -57,8 +57,8 @@ jobs:
             behat_part: '1'
           - theme_default: ec_europa
             behat_part: '2'
-        #   - theme_default: ec_europa
-        #     behat_part: '3'
+          - theme_default: ec_europa
+            behat_part: '3'
     container:
       image: fpfis/httpd-php-ci:5.6
       env:
