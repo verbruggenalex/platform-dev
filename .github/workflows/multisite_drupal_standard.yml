@@ -47,21 +47,23 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v1
-    - name: Site build
+    - name: Docker Compose Up
       run: |
         docker-compose up -d
-        docker-compose exec -T web composer install --ansi --no-suggest --no-progress
-        docker-compose exec -T web ./bin/phing build-platform-dev -propertyfile 'build.properties.github' -D'platform.profile.name'='${{ matrix.platform_profile }}' -D'platform.site.theme_default'='${{ matrix.theme_default }}'
-        docker-compose exec -T web ./bin/phing setup-drone-file-system -propertyfile 'build.properties.github' -D'platform.profile.name'='${{ matrix.platform_profile }}' -D'platform.site.theme_default'='${{ matrix.theme_default }}'
-        docker-compose exec -T web ./bin/phing install-platform  -propertyfile 'build.properties.github' -D'platform.profile.name'='${{ matrix.platform_profile }}' -D'platform.site.theme_default'='${{ matrix.theme_default }}'
-    # - name: PHPCS
-    #   run: |
-    #     ./bin/phpcs
-    #   if: matrix.code_compliance == 1
-    # - name: PHP Unit
-    #   run: |
-    #     ./bin/phpunit -c tests/phpunit.xml
-    #   if: matrix.code_compliance == 1
+        alias dcweb="docker-compose exec -T web"
+    - name: Composer install
+      run: |
+        dcweb composer install --ansi --no-suggest --no-progress
+    - name: Build Platform
+      run: |
+        dcweb./bin/phing build-platform-dev -propertyfile 'build.properties.github' -D'platform.profile.name'='${{ matrix.platform_profile }}' -D'platform.site.theme_default'='${{ matrix.theme_default }}'
+    - name: Install Platform
+      run: |
+        dcweb ./bin/phing setup-drone-file-system -propertyfile 'build.properties.github' -D'platform.profile.name'='${{ matrix.platform_profile }}' -D'platform.site.theme_default'='${{ matrix.theme_default }}'
+        dcweb ./bin/phing install-platform  -propertyfile 'build.properties.github' -D'platform.profile.name'='${{ matrix.platform_profile }}' -D'platform.site.theme_default'='${{ matrix.theme_default }}'
     - name: Behat
       run: |
-        docker-compose exec -T web ./bin/behat -c build/tests/balancer/behat.${{ matrix.behat_profile}}.${{ matrix.behat_part }}.yml -p ${{ matrix.behat_profile}} --colors -f pretty --strict
+        dcweb ./bin/behat -c build/tests/balancer/behat.${{ matrix.behat_profile}}.${{ matrix.behat_part }}.yml -p ${{ matrix.behat_profile}} --colors -f pretty --strict
+    - name: Docker Compose Down
+      run: |
+        docker-compose down
