@@ -9,15 +9,15 @@ jobs:
       matrix:
         platform_profile: [multisite_drupal_standard,multisite_drupal_communities]
         theme_default: [ec_resp,ec_europa]
-        # include:
-        #   - code_compliance: 1
-        #     # Communities profile, ec_resp theme
-        #   - behat_part: 0
-        #     behat_profile: communities_ec_resp
-        #     code_compliance: 0
-        #     image_php: fpfis/httpd-php-ci:5.6
-        #     platform_profile: multisite_drupal_communities
-        #     theme_default: ec_resp
+        include:
+          - code_compliance: 1
+            # Communities profile, ec_resp theme
+          - behat_part: 0
+            behat_profile: communities_ec_resp
+            code_compliance: 0
+            image_php: fpfis/httpd-php-ci:5.6
+            platform_profile: multisite_drupal_communities
+            theme_default: ec_resp
     
         #     # Communities profile, ec_europa theme
         #   - behat_part: 0
@@ -102,3 +102,8 @@ jobs:
         ./bin/phing build-platform-dev -propertyfile 'build.properties.drone' -D'platform.profile.name'='${{ matrix.platform_profile }}' -D'platform.site.theme_default'='${{ matrix.theme_default }}'
         ./bin/phing setup-drone-file-system -propertyfile 'build.properties.drone' -D'platform.profile.name'='${{ matrix.platform_profile }}' -D'platform.site.theme_default'='${{ matrix.theme_default }}'
         ./bin/phing install-platform  -propertyfile 'build.properties.drone' -D'platform.profile.name'='${{ matrix.platform_profile }}' -D'platform.site.theme_default'='${{ matrix.theme_default }}'
+    - name: PHPCS
+      run: |
+        ./bin/phpcs
+      with:
+        code_compliance: ${{ matrix.code_compliance }}
