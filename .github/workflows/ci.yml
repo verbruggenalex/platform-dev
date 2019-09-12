@@ -1,0 +1,30 @@
+name: CI
+on:
+  push:
+jobs:
+  web:
+    container:
+      image: fpfis/httpd-php-ci:5.6
+      env:
+        DOCUMENT_ROOT: /test/platform
+  services:
+    mysql:
+      image: percona/percona-server:5.6
+      env:
+        MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+    selenium:
+      image: wernight/phantomjs
+      env:
+        DISPLAY: ':99'
+        SE_OPTS: '-debug'
+  build:
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v1
+    - name: Site build
+      run: |
+        php --version
+        composer install --ansi --no-suggest --no-progress
+        ./bin/phing build-platform-dev -propertyfile 'build.properties.drone' -D'platform.profile.name'='${PLATFORM_PROFILE=multisite_drupal_standard}' -D'platform.site.theme_default'='${THEME_DEFAULT=ec_resp}'
+        ./bin/phing setup-drone-file-system -propertyfile 'build.properties.drone' -D'platform.profile.name'='${PLATFORM_PROFILE=multisite_drupal_standard}' -D'platform.site.theme_default'='${THEME_DEFAULT=ec_resp}'
+        ./bin/phing install-platform  -propertyfile 'build.properties.drone' -D'platform.profile.name'='${PLATFORM_PROFILE=multisite_drupal_standard}' -D'platform.site.theme_default'='${THEME_DEFAULT=ec_resp}'
