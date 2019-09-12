@@ -3,6 +3,8 @@ on:
   push:
 jobs:
   build:
+    name: Build
+    runs-on: ubuntu-latest
     container:
       image: fpfis/httpd-php-ci:5.6
       env:
