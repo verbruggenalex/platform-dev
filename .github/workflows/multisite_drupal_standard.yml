@@ -7,25 +7,25 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        theme_default: [ec_resp,ec_europa]
-        behat_part: [0,1,2,3]
+        theme_default: [ec_resp, ec_europa]
+        behat_part: [0, 1, 2, 3]
         include:
           - platform_profile: multisite_drupal_standard
             theme_default: ec_resp
             behat_part: 0
-            behat_profile: default
+            behat_profile: standard_ec_resp
           - platform_profile: multisite_drupal_standard
             theme_default: ec_resp
             behat_part: 1
-            behat_profile: default
+            behat_profile: standard_ec_resp
           - platform_profile: multisite_drupal_standard
             theme_default: ec_resp
             behat_part: 2
-            behat_profile: default
+            behat_profile: standard_ec_resp
           - platform_profile: multisite_drupal_standard
             theme_default: ec_resp
             behat_part: 3
-            behat_profile: default
+            behat_profile: standard_ec_resp
           - platform_profile: multisite_drupal_standard
             theme_default: ec_europa
             behat_part: 0
@@ -42,7 +42,6 @@ jobs:
             theme_default: ec_europa
             behat_part: 3
             behat_profile: default
-          
     # container:
     #   image: fpfis/httpd-php-ci:5.6
     #   env:
@@ -63,6 +62,7 @@ jobs:
           echo "platform_profile: ${{ matrix.platform_profile }}"
           echo "theme_default: ${{ matrix.theme_default }}"
           echo "behat_part: ${{ matrix.behat_part }}"
+          echo "behat_part: ${{ matrix.behat_profile }}"
     # - name: Checkout
     #   uses: actions/checkout@v1
     # - name: Site build
