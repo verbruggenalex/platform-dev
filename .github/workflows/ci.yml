@@ -105,5 +105,5 @@ jobs:
     - name: PHPCS
       run: |
         ./bin/phpcs
-      with:
-        code_compliance: ${{ matrix.code_compliance }}
+      if:
+        matrix.code_compliance: 1
