@@ -7,10 +7,8 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        theme_default: [ec_europa]
-        behat_part: [0]
-        # theme_default: [ec_resp, ec_europa]
-        # behat_part: [0, 1, 2, 3]
+        theme_default: [ec_resp, ec_europa]
+        behat_part: [0, 1, 2, 3]
         include:
           - theme_default: ec_resp
             behat_part: '0'
@@ -44,6 +42,23 @@ jobs:
             behat_part: '3'
             behat_profile: default
             platform_profile: multisite_drupal_standard
+        exclude:
+          - theme_default: ec_resp
+            behat_part: '0'
+          - theme_default: ec_resp
+            behat_part: '1'
+          - theme_default: ec_resp
+            behat_part: '2'
+          - theme_default: ec_resp
+            behat_part: '3'
+          - theme_default: ec_europa
+            behat_part: '0'
+          - theme_default: ec_europa
+            behat_part: '1'
+          - theme_default: ec_europa
+            behat_part: '2'
+        #   - theme_default: ec_europa
+        #     behat_part: '3'
     container:
       image: fpfis/httpd-php-ci:5.6
       env:
@@ -75,6 +90,6 @@ jobs:
     #   run: |
     #     ./bin/phpunit -c tests/phpunit.xml
     #   if: matrix.code_compliance == 1
-    # - name: Behat
-    #   run: |
-    #     ./bin/behat -c build/tests/balancer/behat.${{ matrix.behat_profile}}.${{ matrix.behat_part }}.yml -p ${{ matrix.behat_profile}} --colors -f pretty --strict
+    - name: Behat
+      run: |
+        ./bin/behat -c build/tests/balancer/behat.${{ matrix.behat_profile}}.${{ matrix.behat_part }}.yml -p ${{ matrix.behat_profile}} --colors -f pretty --strict
