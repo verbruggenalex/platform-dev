@@ -46,7 +46,7 @@ jobs:
           SE_OPTS: '-debug'
     steps:
       - name: Echo
-      - run: |
+        run: |
           echo "platform_profile: {{ matrix.platform_profile }}"
           echo "theme_default: {{ matrix.theme_default }}"
           echo "behat_part: {{ matrix.behat_part }}"
