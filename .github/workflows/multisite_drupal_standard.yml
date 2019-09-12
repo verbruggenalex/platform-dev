@@ -44,39 +44,16 @@ jobs:
             behat_part: '3'
             behat_profile: default
             platform_profile: multisite_drupal_standard
-    container:
-      image: fpfis/httpd-php-ci:5.6
-      env:
-        DOCUMENT_ROOT: /__w/platform-dev/platform-dev
-    services:
-      mysql:
-        image: percona/percona-server:5.6
-        env:
-          MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
-      selenium:
-        image: wernight/phantomjs
-        env:
-          DISPLAY: ':99'
-          SE_OPTS: '-debug'
     steps:
     - name: Checkout
       uses: actions/checkout@v1
-    - name: Debug
+    - name: Site build
       run: |
-        echo $DOCUMENT_ROOT
-        echo $PWD
-        echo $GITHUB_WORKSPACE
-        ls -la $PWD
-        ls -la $GITHUB_WORKSPACE
-        ls -la $DOCUMENT_ROOT
-        curl http://localhost:8080 || curl http://127.0.0.1:8080 || echo "No curl" 
-    # - name: Site build
-    #   run: |
-    #     php --version
-    #     composer install --ansi --no-suggest --no-progress
-    #     ./bin/phing build-platform-dev -propertyfile 'build.properties.github' -D'platform.profile.name'='${{ matrix.platform_profile }}' -D'platform.site.theme_default'='${{ matrix.theme_default }}'
-    #     ./bin/phing setup-drone-file-system -propertyfile 'build.properties.github' -D'platform.profile.name'='${{ matrix.platform_profile }}' -D'platform.site.theme_default'='${{ matrix.theme_default }}'
-    #     ./bin/phing install-platform  -propertyfile 'build.properties.github' -D'platform.profile.name'='${{ matrix.platform_profile }}' -D'platform.site.theme_default'='${{ matrix.theme_default }}'
+        docker-compose up -d
+        docker-compose exec -T web composer install --ansi --no-suggest --no-progress
+        docker-compose exec -T web ./bin/phing build-platform-dev -propertyfile 'build.properties.github' -D'platform.profile.name'='${{ matrix.platform_profile }}' -D'platform.site.theme_default'='${{ matrix.theme_default }}'
+        docker-compose exec -T web ./bin/phing setup-drone-file-system -propertyfile 'build.properties.github' -D'platform.profile.name'='${{ matrix.platform_profile }}' -D'platform.site.theme_default'='${{ matrix.theme_default }}'
+        docker-compose exec -T web ./bin/phing install-platform  -propertyfile 'build.properties.github' -D'platform.profile.name'='${{ matrix.platform_profile }}' -D'platform.site.theme_default'='${{ matrix.theme_default }}'
     # - name: PHPCS
     #   run: |
     #     ./bin/phpcs
@@ -86,5 +63,5 @@ jobs:
     #     ./bin/phpunit -c tests/phpunit.xml
     #   if: matrix.code_compliance == 1
     # - name: Behat
-    #   run: |
-    #     ./bin/behat -c build/tests/balancer/behat.${{ matrix.behat_profile}}.${{ matrix.behat_part }}.yml -p ${{ matrix.behat_profile}} --colors -f pretty --strict
+      run: |
+        docker-compose exec -T web ./bin/behat -c build/tests/balancer/behat.${{ matrix.behat_profile}}.${{ matrix.behat_part }}.yml -p ${{ matrix.behat_profile}} --colors -f pretty --strict
