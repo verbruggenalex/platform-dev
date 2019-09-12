@@ -9,75 +9,27 @@ jobs:
       matrix:
         platform_profile: [multisite_drupal_standard,multisite_drupal_communities]
         theme_default: [ec_resp,ec_europa]
-        include:
-          - code_compliance: 1
-            # Communities profile, ec_resp theme
-          - behat_part: 0
-            behat_profile: communities_ec_resp
-            code_compliance: 0
-            image_php: fpfis/httpd-php-ci:5.6
-            platform_profile: multisite_drupal_communities
+        behat_part: [0,1,2,3]
+#        behat_profile: [standard_ec_resp,default,communities,communities_ec_resp]
+        exclude:
+          - platform_profile: multisite_drupal_communities
             theme_default: ec_resp
-    
-        #     # Communities profile, ec_europa theme
-        #   - behat_part: 0
-        #     behat_profile: communities
-        #     code_compliance: 0
-        #     image_php: fpfis/httpd-php-ci:5.6
-        #     platform_profile: multisite_drupal_communities
-        #     theme_default: ec_europa
-    
-        #     # Standard profile, ec_europa theme
-        #   - behat_part: 0
-        #     behat_profile: default
-        #     code_compliance: 0
-        #     image_php: fpfis/httpd-php-ci:5.6
-        #     platform_profile: multisite_drupal_standard
-        #     theme_default: ec_europa
-        #   - behat_part: 1
-        #     behat_profile: default
-        #     code_compliance: 0
-        #     image_php: fpfis/httpd-php-ci:5.6
-        #     platform_profile: multisite_drupal_standard
-        #     theme_default: ec_europa
-        #   - behat_part: 2
-        #     behat_profile: default
-        #     code_compliance: 0
-        #     image_php: fpfis/httpd-php-ci:5.6
-        #     platform_profile: multisite_drupal_standard
-        #     theme_default: ec_europa
-        #   - behat_part: 3
-        #     behat_profile: default
-        #     code_compliance: 0
-        #     image_php: fpfis/httpd-php-ci:5.6
-        #     platform_profile: multisite_drupal_standard
-        #     theme_default: ec_europa
-    
-        #     # Standard profile, ec_resp theme
-        #   - behat_part: 0
-        #     behat_profile: standard_ec_resp
-        #     code_compliance: 0
-        #     image_php: fpfis/httpd-php-ci:5.6
-        #     platform_profile: multisite_drupal_standard
-        #     theme_default: ec_resp
-        #   - behat_part: 1
-        #     behat_profile: standard_ec_resp
-        #     code_compliance: 0
-        #     image_php: fpfis/httpd-php-ci:5.6
-        #     platform_profile: multisite_drupal_standard
-        #     theme_default: ec_resp
-        #   - behat_part: 2
-        #     behat_profile: standard_ec_resp
-        #     code_compliance: 0
-        #     image_php: fpfis/httpd-php-ci:5.6
-        #     platform_profile: multisite_drupal_standard
-        #     theme_default: ec_resp
-        #   - behat_part: 3
-        #     behat_profile: standard_ec_resp
-        #     code_compliance: 0
-        #     image_php: fpfis/httpd-php-ci:5.6
-        #     platform_profile: multisite_drupal_standard
-        #     theme_default: ec_resp
+            behat_part: 1
+          - platform_profile: multisite_drupal_communities
+            theme_default: ec_resp
+            behat_part: 2
+          - platform_profile: multisite_drupal_communities
+            theme_default: ec_resp
+            behat_part: 3
+          - platform_profile: multisite_drupal_communities
+            theme_default: ec_europa
+            behat_part: 1
+          - platform_profile: multisite_drupal_communities
+            theme_default: ec_europa
+            behat_part: 2
+          - platform_profile: multisite_drupal_communities
+            theme_default: ec_europa
+            behat_part: 3
     container:
       image: fpfis/httpd-php-ci:5.6
       env:
@@ -93,16 +45,28 @@ jobs:
           DISPLAY: ':99'
           SE_OPTS: '-debug'
     steps:
-    - name: Checkout
-      uses: actions/checkout@v1
-    - name: Site build
-      run: |
-        php --version
-        composer install --ansi --no-suggest --no-progress
-        ./bin/phing build-platform-dev -propertyfile 'build.properties.drone' -D'platform.profile.name'='${{ matrix.platform_profile }}' -D'platform.site.theme_default'='${{ matrix.theme_default }}'
-        ./bin/phing setup-drone-file-system -propertyfile 'build.properties.drone' -D'platform.profile.name'='${{ matrix.platform_profile }}' -D'platform.site.theme_default'='${{ matrix.theme_default }}'
-        ./bin/phing install-platform  -propertyfile 'build.properties.drone' -D'platform.profile.name'='${{ matrix.platform_profile }}' -D'platform.site.theme_default'='${{ matrix.theme_default }}'
-    - name: PHPCS
-      run: |
-        ./bin/phpcs
-      if: matrix.code_compliance == 1
+      - name: Echo
+      - run: |
+          echo "platform_profile: {{ matrix.platform_profile }}"
+          echo "theme_default: {{ matrix.theme_default }}"
+          echo "behat_part: {{ matrix.behat_part }}"
+    # - name: Checkout
+    #   uses: actions/checkout@v1
+    # - name: Site build
+    #   run: |
+    #     php --version
+    #     composer install --ansi --no-suggest --no-progress
+    #     ./bin/phing build-platform-dev -propertyfile 'build.properties.drone' -D'platform.profile.name'='${{ matrix.platform_profile }}' -D'platform.site.theme_default'='${{ matrix.theme_default }}'
+    #     ./bin/phing setup-drone-file-system -propertyfile 'build.properties.drone' -D'platform.profile.name'='${{ matrix.platform_profile }}' -D'platform.site.theme_default'='${{ matrix.theme_default }}'
+    #     ./bin/phing install-platform  -propertyfile 'build.properties.drone' -D'platform.profile.name'='${{ matrix.platform_profile }}' -D'platform.site.theme_default'='${{ matrix.theme_default }}'
+    # - name: PHPCS
+    #   run: |
+    #     ./bin/phpcs
+    #   if: matrix.code_compliance == 1
+    # - name: PHP Unit
+    #   run: |
+    #     ./bin/phpunit -c tests/phpunit.xml
+    #   if: matrix.code_compliance == 1
+    # - name: Behat
+    #   run: |
+    #     ./bin/behat -c build/tests/balancer/behat.${{ matrix.behat_profile}}.${{ matrix.behat_part }}.yml -p ${{ matrix.behat_profile}} --colors -f pretty --strict
