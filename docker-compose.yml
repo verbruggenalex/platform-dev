@@ -16,3 +16,4 @@ services:
     environment:
       DISPLAY: ':99'
       SE_OPTS: '-debug'
+    command: "phantomjs --webdriver=8910 --ignore-ssl-errors=true --ssl-protocol=any"
