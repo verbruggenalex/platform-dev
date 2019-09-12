@@ -3,11 +3,11 @@
 
 composer.bin = /usr/bin/composer
 behat.screenshots.path = /test/platform/tests/screenshots
-behat.base_url = http://web:8080/build
+behat.base_url = http://127.0.0.1:8080/build
 behat.wd_host.url = http://selenium:8910/wd/hub
 behat.browser.name = phantomjs
 
-mock.poetry.base_url = http://web:8080/build
+mock.poetry.base_url = http://127.0.0.1:8080/build
 
 behat.poetry.host = behat
 behat.poetry.port = 28080
