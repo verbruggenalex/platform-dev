@@ -3,47 +3,20 @@ on:
   push:
 jobs:
   build:
-    name: Multisite Drupal Standard
+    name: Multisite Drupal Communities
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        # theme_default: [ec_europa]
-        # behat_part: [0]
         theme_default: [ec_resp, ec_europa]
-        behat_part: [0, 1, 2, 3]
         include:
           - theme_default: ec_resp
             behat_part: '0'
-            behat_profile: standard_ec_resp
-            platform_profile: multisite_drupal_standard
-          - theme_default: ec_resp
-            behat_part: '1'
-            behat_profile: standard_ec_resp
-            platform_profile: multisite_drupal_standard
-          - theme_default: ec_resp
-            behat_part: '2'
-            behat_profile: standard_ec_resp
-            platform_profile: multisite_drupal_standard
-          - theme_default: ec_resp
-            behat_part: '3'
-            behat_profile: standard_ec_resp
-            platform_profile: multisite_drupal_standard
+            behat_profile: communities_ec_resp
+            platform_profile: multisite_drupal_communities
           - theme_default: ec_europa
             behat_part: '0'
-            behat_profile: default
-            platform_profile: multisite_drupal_standard
-          - theme_default: ec_europa
-            behat_part: '1'
-            behat_profile: default
-            platform_profile: multisite_drupal_standard
-          - theme_default: ec_europa
-            behat_part: '2'
-            behat_profile: default
-            platform_profile: multisite_drupal_standard
-          - theme_default: ec_europa
-            behat_part: '3'
-            behat_profile: default
-            platform_profile: multisite_drupal_standard
+            behat_profile: communities
+            platform_profile: multisite_drupal_communities
     steps:
     - name: Checkout
       uses: actions/checkout@v1
