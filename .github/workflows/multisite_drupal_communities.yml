@@ -6,6 +6,7 @@ jobs:
     name: Multisite Drupal Communities
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         theme_default: [ec_resp, ec_europa]
         include:

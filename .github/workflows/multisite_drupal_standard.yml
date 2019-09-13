@@ -6,11 +6,12 @@ jobs:
     name: Multisite Drupal Standard
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
-        theme_default: [ec_europa]
-        behat_part: [0]
-        # theme_default: [ec_resp, ec_europa]
-        # behat_part: [0, 1, 2, 3]
+        # theme_default: [ec_europa]
+        # behat_part: [0]
+        theme_default: [ec_resp, ec_europa]
+        behat_part: [0, 1, 2, 3]
         include:
           - theme_default: ec_resp
             behat_part: '0'
