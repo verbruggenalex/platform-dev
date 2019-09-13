@@ -9,7 +9,7 @@ behat.browser.name = phantomjs
 
 mock.poetry.base_url = http://localhost:8080/build
 
-behat.poetry.host = behat
+behat.poetry.host = localhost
 behat.poetry.port = 28080
 behat.poetry.endpoint = /service
 behat.poetry.wsdl = /wsdl
