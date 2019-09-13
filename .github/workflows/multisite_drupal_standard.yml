@@ -66,8 +66,9 @@ jobs:
         docker-compose exec -T web ./bin/phing install-platform  -propertyfile 'build.properties.github' -D'platform.profile.name'='${{ matrix.platform_profile }}' -D'platform.site.theme_default'='${{ matrix.theme_default }}'
     - name: Behat
       run: |
-        timeout 7m docker-compose exec -T web "./bin/behat -c build/tests/balancer/behat.${{ matrix.behat_profile}}.${{ matrix.behat_part }}.yml -p ${{ matrix.behat_profile}} --colors -f pretty --strict" || echo "Continue"
+        timeout 7m docker-compose exec -T web ./bin/behat -c build/tests/balancer/behat.${{ matrix.behat_profile}}.${{ matrix.behat_part }}.yml -p ${{ matrix.behat_profile}} --colors -f pretty --strict
     - name: Docker Compose Down
       run: |
         docker-compose logs selenium
         docker-compose down
+      if: failure()
