@@ -55,11 +55,11 @@ jobs:
         docker-compose exec -T web composer install --ansi --no-suggest --no-progress
     - name: Build Platform
       run: |
-        docker-compose exec -T web ./bin/phing build-platform-dev -propertyfile 'build.properties.github' -D'platform.profile.name'='${{ matrix.platform_profile }}' -D'platform.site.theme_default'='${{ matrix.theme_default }}'
+        docker-compose exec -T web ./bin/phing build-platform-dev -propertyfile 'build.properties.drone' -D'platform.profile.name'='${{ matrix.platform_profile }}' -D'platform.site.theme_default'='${{ matrix.theme_default }}'
     - name: Install Platform
       run: |
-        docker-compose exec -T web ./bin/phing setup-drone-file-system -propertyfile 'build.properties.github' -D'platform.profile.name'='${{ matrix.platform_profile }}' -D'platform.site.theme_default'='${{ matrix.theme_default }}'
-        docker-compose exec -T web ./bin/phing install-platform  -propertyfile 'build.properties.github' -D'platform.profile.name'='${{ matrix.platform_profile }}' -D'platform.site.theme_default'='${{ matrix.theme_default }}'
+        docker-compose exec -T web ./bin/phing setup-drone-file-system -propertyfile 'build.properties.drone' -D'platform.profile.name'='${{ matrix.platform_profile }}' -D'platform.site.theme_default'='${{ matrix.theme_default }}'
+        docker-compose exec -T web ./bin/phing install-platform  -propertyfile 'build.properties.drone' -D'platform.profile.name'='${{ matrix.platform_profile }}' -D'platform.site.theme_default'='${{ matrix.theme_default }}'
     - name: Behat
       run: |
         docker-compose exec -T web ./bin/behat -c build/tests/balancer/behat.${{ matrix.behat_profile}}.${{ matrix.behat_part }}.yml -p ${{ matrix.behat_profile}} --colors -f pretty --strict
