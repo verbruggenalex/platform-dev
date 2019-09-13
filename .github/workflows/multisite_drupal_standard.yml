@@ -50,6 +50,10 @@ jobs:
     - name: Docker Compose Up
       run: |
         docker-compose up -d
+        docker-compose ps
+        sleep 10
+        docker-compose logs selenium
+        docker-compose logs web
     - name: Composer install
       run: |
         docker-compose exec -T web composer install --ansi --no-suggest --no-progress
